@@ -28,6 +28,9 @@ After these steps, simply run the following command in the project root folder
 npm install
 ```
 
+Note: debugging was made easier thanks to this article by James Best: 
+https://medium.com/@jimgbest/react-native-debugger-expo-awesome-d7a00da51460
+
 ### Remote
 
 Or, try it out via the [Expo demo](https://expo.io/@tncho) 
@@ -39,6 +42,9 @@ Or, try it out via the [Expo demo](https://expo.io/@tncho)
 - [NativeBase](https://nativebase.io/) - Essential cross-platform UI components for React Native
 - [Expo](https://expo.io/) - Free and open source toolchain built around React Native to build native iOS and Android projects using JavaScript and React.
 - [Axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js
+- [Normalizr](https://github.com/paularmstrong/normalizr) - Normalizes nested JSON according to a schema
+- [Punk API](https://punkapi.com/) - Search through Brewdog's expansive back catalogue of beer in a programmatic way
+
 
 ## To-do
 - Replace NPM with YARN as the package management tool.
