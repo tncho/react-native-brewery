@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, Keyboard, View } from 'react-native';
-import { Container, Content } from 'native-base';
+import { Container, Content, DeckSwiper, Spinner } from 'native-base';
 import SearchHeaderComponent from './../SearchHeader';
-import SearchResultsComponent from '../SearchResultsComponent';
+import BeerCard from '../BeerCard';
 import axios from 'axios';
 
 class SearchTabComponent extends Component {
   state = {
     searchBeer: '',
     beerFound: false,
-    beerData: {}
+    beerData: [],
+    loading: false
   };
 
   static navigationOptions = {
@@ -22,34 +23,47 @@ class SearchTabComponent extends Component {
     const endpoint = 'https://api.punkapi.com/v2/beers';
 
     const searchByNameQuery = `${endpoint}?beer_name=${beerName}`;
-
+    const vm = this;
+    vm.setState({
+      loading: true
+    }, () => {
     axios
       .get(searchByNameQuery)
       .then(({ data: beers }) => {
         if (beers) {
-          this.setState({
-            beerData: beers[0],
-            beerFound: true
+          vm.setState({
+            beerData: beers,
+            beerFound: true,
+            loading: false
           });
         }
-        console.log(this.state.beerData);
+        console.log(vm.state.beerData);
       })
       .catch(err => {
-        this.setState({
-          beerFound: false
+        vm.setState({
+          beerFound: false,
+          loading: false
         });
       });
+    })
   };
 
   renderContent = () => {
     if (this.state.beerFound) {
-      return <SearchResultsComponent beerData={this.state.beerData}/>
+      return <DeckSwiper
+        dataSource={this.state.beerData}
+        renderItem={item =>
+          <BeerCard beerData={item}/>
+        }
+      />
     } else {
       console.log('beer not found');
+      return <Text>No results</Text>
     }
   };
 
   render() {
+    const { loading } = this.state;
     return (
       <Container>
         <SearchHeaderComponent
@@ -57,9 +71,9 @@ class SearchTabComponent extends Component {
           onChangeText={searchBeer => this.setState({ searchBeer })}
           beerSearch={this.beerSearch}
         />
-        <Content>
-          {this.renderContent()}
-        </Content>
+        <View>
+            { loading ? <Spinner color='blue' /> : this.renderContent() }
+        </View>
       </Container>
     );
   }

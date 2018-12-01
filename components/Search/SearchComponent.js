@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import React from 'react'
+import { Text, StyleSheet } from 'react-native'
 import { createBottomTabNavigator } from 'react-navigation';
 import { Footer, FooterTab, Button, Icon } from 'native-base';
 import SearchTabComponent from './Tabs/Search';
 import FavoritesTabComponent from './Tabs/Favorites';
 
 const SearchComponent = createBottomTabNavigator({
-    SearchTab:    { screen: SearchTabComponent },
-    FavoritesTab: { screen: FavoritesTabComponent }
+    Search:    { screen: SearchTabComponent },
+    Favorites: { screen: FavoritesTabComponent }
 },
 {
     tabBarPosition: 'bottom',
@@ -16,8 +16,8 @@ const SearchComponent = createBottomTabNavigator({
           <Footer>
               <FooterTab>
                 <Button 
-                active = {props.navigation.state.routeName === 'SearchTab'}
-                onPress = {() => props.navigation.navigate('SearchTab')}
+                active = {props.navigation.state.routeName === 'Search'}
+                onPress = {() => props.navigation.navigate('Search')}
                 light 
                 vertical 
                 large>
@@ -26,12 +26,12 @@ const SearchComponent = createBottomTabNavigator({
                 </Button>
 
                 <Button 
-                active = {props.navigation.state.routeName === 'FavoritesTab'}
-                onPress = {() => props.navigation.navigate('FavoritesTab')}
+                active = {props.navigation.state.routeName === 'Favorites'}
+                onPress = {() => props.navigation.navigate('Favorites')}
                 light 
                 vertical 
                 large>
-                    <Icon style={buttonStyles.baseButtonIcon} name="star"/>
+                    <Icon style={buttonStyles.baseButtonIcon} name="bookmark"/>
                     <Text style={buttonStyles.baseButtonText}> Favorites </Text>
                 </Button>
               </FooterTab>
@@ -51,5 +51,18 @@ const buttonStyles = StyleSheet.create({
       color: 'gray'
     }
 });
+
+SearchComponent.navigationOptions = ({ navigation }) => {
+    const { routeName } = navigation.state.routes[navigation.state.index];
+  
+    // You can do whatever you like here to pick the title based on the route name
+    const headerTitle = routeName;
+  
+    return {
+      headerTitle,
+      headerStyle: { backgroundColor: "#3F51B5" },
+      headerTintColor: "#fff"
+    };
+  };
 
 export default SearchComponent;
