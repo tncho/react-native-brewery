@@ -47,8 +47,8 @@ Or, try it out via the [Expo demo](https://expo.io/@tncho)
 
 
 ## To-do
-- Replace NPM with YARN as the package management tool.
+- Replace NPM with YARN as the package management tool. (completed)
 - Add unit tests
-- Complete the search feature
+- Complete the search feature (todo: Favorite feature)
 - Implement Redux & Firebase
 
